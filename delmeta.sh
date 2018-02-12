@@ -1,0 +1,1 @@
+find ./ezaction/ -type f -name '*.meta' -delete
