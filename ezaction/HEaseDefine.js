@@ -25,6 +25,14 @@ ease.easeIn = function (rate) {
     }
 };
 
+ease.easeOut = function (rate) {
+    let period = rate;
+    return function (time) {
+        return Math.pow(time, 1/period);
+    }
+};
+
+
 ease.easeInOut = function (_rate) {
     let rate = _rate;
     return function (_time) {
@@ -112,3 +120,10 @@ ease.cubicEaseOut = function () {
         return (time * time * time + 1);
     };
 };
+
+ease.customEase = function( customEase ){
+    let cease = customEase;
+    return function (time) {
+        return cease.getRatio(time)
+    };
+}

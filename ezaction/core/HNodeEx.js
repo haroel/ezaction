@@ -32,6 +32,15 @@ NodePrototype.RemoveAction = function (HAction) {
     }
 };
 
+NodePrototype.RemoveActionByTag = function (tag){
+    if (!this._components) {
+        return;
+    }
+    let act = this.GetActionByTag(tag);
+    if (act){
+        this.RemoveAction(act);
+    }
+}
 
 NodePrototype.RemoveAllActions = function () {
     if (!this._components) {

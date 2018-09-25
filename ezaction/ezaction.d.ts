@@ -3,10 +3,13 @@
  * @Author: howe
  * @Contact: ihowe@outlook.com
  * @Last Modified By: howe
- * @Last Modified Time: Feb 7, 2018 6:47 PM
+ * @Last Modified Time: Sep 13, 2018 11:37 AM
  * @Description: ezaction的TS接口描述文件
  * 
  */
+
+/** require模块方法 */
+declare function require(moduleName:string):any;
 
 /**
  * cc.Node的prototype新增部分方法
@@ -21,6 +24,12 @@ declare namespace cc {
          * 删除action
          */
         RemoveAction(action: ezaction.HAction): void;
+
+                /**
+         * 删除action
+         */
+        RemoveActionByTag(tag: number): void;
+
         /**
          * 删除当前节点的所有HAction
          */
@@ -45,12 +54,20 @@ declare namespace cc {
 }
 
 declare namespace ezaction {
+
+    export class CustomEase{
+        getRatio(progress:number):number;
+    }
+    export class HCustomEase{
+        static create(id:string,data:string,config:any = null):CustomEase;
+    }
     /**
      * 缓动模块 该模块只对HActionInterval和其子类有效果
      */
     export module ease {
-        function backEaseIn(rate?: number): Function;
-        function easeIn(rate?: number): Function;
+        function backEaseIn(rate: number = 3.0): Function;
+        function easeIn(rate: number = 3.0): Function;
+        function easeOut(rate: number = 2): Function;
         function easeInOut(rate?: number): Function;
         function easeBackOut(rate?: number = 1.70158): Function;
         function EaseElasticIn(rate: number): Function;
@@ -59,6 +76,7 @@ declare namespace ezaction {
         function sineEaseOut(rate: number): Function;
         function sineEaseIn(rate: number): Function;
         function cubicEaseOut(rate: number): Function;
+        function customEase( customEase: CustomEase ): Function;
     }
     /**
      * HAction的状态
@@ -114,7 +132,7 @@ declare namespace ezaction {
         /**
          * 设置HAction速度 ，1为正常速度，数字越大，运行越快
          */
-        setSpeed(value: number): void;
+        setSpeed(value: number): HAction;
 
         /**
          * 当前HAction作用的Node节点
@@ -236,13 +254,17 @@ declare namespace ezaction {
 
         static create(duration: number, vars:any = null): HActionInterval;
     }
-
-    export class HActionTween extends HActionInterval {
-        static create(vars: any = null): HActionInstant
+    export class HActionTweenBase extends HActionInterval {
+        setTarget(objOrNode:any):void;
+        getTarget():any;
     }
 
-    export class HActionTweenBy extends HActionInterval {
-        static create(vars: any = null): HActionInstant
+    export class HActionTween extends HActionTweenBase {
+        static create(vars: any = null): HActionTween
+    }
+
+    export class HActionTweenBy extends HActionTweenBase {
+        static create(vars: any = null): HActionTweenBy
     }
 
     export class HActionJumpBy extends HActionInterval {

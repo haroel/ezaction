@@ -35,6 +35,9 @@ let HActionTweenBase = cc.Class({
         this._intialAttrList = {};
         let _node = this.getTarget();
         for (var key in this._vars) {
+            if (key == 'tag'){
+                continue;
+            }
             if (typeof _node[key] === "number") {
                 let _o = typeof _node[key];
                 if (_o === 'number') {

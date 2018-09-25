@@ -16,7 +16,7 @@ module.exports = cc.Class({
 
     getActionEngine(){
         if (!this.actionEngine){
-            this.actionEngine = require("HActionEngine");
+            this.actionEngine = require("HActionEngine")();
         }
         return this.actionEngine;
     },

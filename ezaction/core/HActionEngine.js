@@ -3,7 +3,7 @@
  * @Author: howe
  * @Contact: ihowe@outlook.com
  * @Last Modified By: howe
- * @Last Modified Time: Feb 7, 2018 3:10 PM
+ * @Last Modified Time: Mar 29, 2018 12:06 PM
  * @Description: EZAction 的驱动引擎 
  */
 const HAction = require("HAction");
@@ -12,11 +12,13 @@ const HActionComponent = require("HActionComponent");
 let HActionEngine = cc.Class({
     ctor: function () {
         this.uuid = "HActionEngine";
+        this._id = this.uuid;
         this._actions = [];
         this._tempInvalidIds = {};
 
         let scheduler = cc.director.getScheduler();
-        scheduler.scheduleUpdateForTarget(this, 0, false);
+        // scheduler.scheduleUpdateForTarget(this, 0, false);
+        scheduler.scheduleUpdate(this, 0, false);
     },
 
     pushActionToQueue: function (hAction) {
@@ -73,6 +75,9 @@ let HActionEngine = cc.Class({
         if (!(hAction instanceof HAction)) {
             cc.error("HActionEngine -> removeAction error: params must be a subclass of HAction!");
         }
+        if (hAction.getState() === ezaction.State.DEAD){
+            return;
+        }
         let uuid = hAction["$uuid"];
         let len = this._actions.length;
         for (let i = 0; i < len; i++) {
@@ -117,7 +122,7 @@ let HActionEngine = cc.Class({
                 let nexthAction = hAction.$getNextAction();
                 if (nexthAction) {
                     // 启动单链表下个节点的Action
-                    nexthAction.startWithTarget(this);
+                    nexthAction.startWithTarget(hAction.getComponent());
                     this._actions[i] = nexthAction;
                 }
                 hAction.$invalid();
@@ -167,5 +172,11 @@ let HActionEngine = cc.Class({
         });
     }
 });
-let engine = new HActionEngine()
-module.exports = engine ;
+let engine = null;
+module.exports = function(){
+    if (engine){
+        return engine;
+    }
+    engine = new HActionEngine();
+    return engine;
+} ;

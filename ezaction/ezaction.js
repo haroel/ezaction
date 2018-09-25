@@ -31,6 +31,7 @@ ezaction.HActionSequence = require("HActionSequence");
 
 ezaction.HActionJumpBy = require("HActionJump").jumpBy;
 ezaction.HActionJumpTo = require("HActionJump").jumpTo;
+ezaction.HCustomEase = require("HCustomEase");
 
 let __checkParams = function (params) {
     // 剔除参数当中的不需要数据
