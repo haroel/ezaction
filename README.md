@@ -1,7 +1,7 @@
 # ezaction
 An extension animation framework for cocos creator.
 
-基于cocos creator的 2D 动画扩展库，接口简单易理解，支持自定义缓动曲线（缓动曲线算法源于greensock https://greensock.com/customease）
+基于cocos creator的 2D 动画扩展库，接口简单易理解，支持可编程式自定义缓动曲线（缓动曲线算法源于greensock https://greensock.com/customease）
 
 
 ### 举很多🌰 
