@@ -1,7 +1,7 @@
 # ezaction
 An extension animation framework for cocos creator.
 
-基于cocos creator的 2D 动画扩展库，接口简单易理解，支持可编程式自定义缓动曲线（缓动曲线算法源于greensock https://greensock.com/customease）
+基于cocos creator的 2D 动画扩展库，接口简单易理解，支持可编程式自定义缓动曲线（缓动曲线算法源于`greensock` https://greensock.com/customease）
 
 
 ### 举很多🌰 
@@ -27,11 +27,11 @@ An extension animation framework for cocos creator.
 
 4. ezaction的属性动态动画
 
-    和cocos的action不一样，ezaction可以指定动画目标对象，也就是说动画的目标可以不是cc.Node
-    HActionTweenBase的setTarget方法可以修改目标对象，HActionTween和HActionTweenBy继承了HActionTweenBase。
+    `ezaction`动画目标可以是任意对象，也就是说动画的目标可以不是cc.Node。
+    `HActionTweenBase`的`setTarget`方法可以修改目标对象，`HActionTween`和`HActionTweenBy`继承了`HActionTweenBase`。
     
     <a name="fenced-code-block">你唯一需要注意的是tween定义的属性名必须在target上能够找到。</a>
-    如果你使用过tweenlite，你可能非常容易理解这种使用方式。
+    如果你使用过`Tweenlite`，你可能非常容易理解这种使用方式。
 
 		    let target = {
 		        hp:0,
@@ -50,12 +50,17 @@ An extension animation framework for cocos creator.
 		    let act = ezaction.moveBy(2.0,cc.v2(200,200),{delay:4.0}).repeatForever();
 		    this.node.RunAction(act);
     
-6. 在上一个动作执行完成之后,紧接着执行一个scale动作
+6. 支持then式语法
 
-		    let act = ezaction.moveBy(2.0,cc.v2(200,200),{delay:4.0}).then(ezaction.scaleTo(0.4,{scaleX:3.0,scaleY:2.0}));
-		    this.node.RunAction(act);
+		    let act1 = ezaction.scaleTo(0.2,{scale:1.7}).onStoped( ()=>{
+		        // TODO
+		    } );
+		    let act2 = ezaction.scaleTo(0.2,{scale:1}).onStoped(next);
+		    // act1执行完毕以后调用act2
+		    act1.then(act2);
+		    this.node.RunAction(act1);
     
-7. Sequence 或Spawn ? 支持的! 
+7. Sequence 或Spawn ? 支持! 
 
 		    let act = ezaction.spawn( [ezaction.moveBy(2.0,cc.v2(200,0),{delay:0.5}), ezaction.scaleTo(3.3,{scaleX:3.0,scaleY:2.0})]  );
 		    this.node.RunAction( act.repeat(5) ); // spawn 5次
@@ -63,7 +68,7 @@ An extension animation framework for cocos creator.
 		    let act = ezaction.sequence( [ezaction.moveBy(2.0,cc.v2(200,0),{delay:1.0}), ezaction.scaleTo(3.3,{scaleX:3.0,scaleY:2.0}) ]  );
 		    this.node.RunAction( act );
     
-8. Action执行完成后回调
+8. Action的回调方法
 
 		    let act = ...
 		
@@ -87,7 +92,7 @@ An extension animation framework for cocos creator.
 		    let act = ...
 		    act.easing(ezaction.ease.easeBackOut(0.5));
 		
-		    // ezaction兼容了creator的缓动算法
+		    // ezaction兼容了creator的缓动算法，所以以下用法有效。
 		    act.easing( cc.easeBackIn() );
 
 10.   支持可编程式自定义缓动曲线
@@ -102,18 +107,7 @@ An extension animation framework for cocos creator.
     https://greensock.com/customease
 
     
-11. 支持then式语法
-
-		    let act1 = ezaction.scaleTo(0.2,{scale:1.7}).onStoped( ()=>{
-		        // TODO
-		    } );
-		    let act2 = ezaction.scaleTo(0.2,{scale:1}).onStoped(next);
-		    // act1执行完毕以后调用act2
-		    act1.then(act2);
-		    this.node.RunAction(act1);
-
-
-12. 支持action的pause、resume、clone。
+11. 支持action的`pause`、`resume`、`clone`。
 
 
 
@@ -122,8 +116,8 @@ An extension animation framework for cocos creator.
 
 ![ezaction pedigree](http://aeooh.com/article/res/haction_f.png)
 
-ezaction.tween(ezaction.moveTo/scaleTo/skewTo/fadeTo...)返回的是一个HActionTween类实例，
-ezaction.tweenBy(ezaction.moveBy/scaleBy/skewBy...)返回的是一个HActionTweenBy类实例，
+`ezaction.tween(ezaction.moveTo/scaleTo/skewTo/fadeTo...) `返回的是一个`HActionTween`类实例，
+`ezaction.tweenBy(ezaction.moveBy/scaleBy/skewBy...)`返回的是一个`HActionTweenBy`类实例，
 
 
     
