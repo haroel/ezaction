@@ -102,8 +102,9 @@ An extension animation framework for cocos creator.
 		    act.easing( easeFunc );
 
     你可能会问，类似这样的动画曲线标记字符`M0,0 C0.548,0...`这是怎么来的？
+    该内容是一段`SVG <path>`曲线，你可以从其他地方拷贝或者使用`Adobe Illustrator`来生成一条path路径曲线。
     前面说到过，自定义缓动曲线算法基于greensock提供的开源代码，我在它的核心算法上做了封装。
-    幸运的是greensock提供了曲线在线编辑工具，可以非常直观的获取曲线标记字符内容。
+    幸运的是greensock提供了<path>路径曲线在线编辑工具，可以非常直观的获取曲线标记字符内容。
     https://greensock.com/customease
 
     
