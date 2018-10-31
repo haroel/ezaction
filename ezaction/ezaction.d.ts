@@ -186,6 +186,10 @@ declare namespace ezaction {
         /*
         * onUpdate回调
         * */
+        onStart(callFunc: Function): HAction;
+        /*
+        * onUpdate回调
+        * */
         onUpdate(callFunc: Function): HAction;
         /*
         * 完成回调，注意如果设置了repeat次数，则该回调会触发repeat次

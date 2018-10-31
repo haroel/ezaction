@@ -26,7 +26,7 @@ let HAction = cc.Class({
         this._actionComponent = null;
         this.__nextAction = null;
         this._vars = new HVars();
-
+        this._isStart = false;
         Object.defineProperty(this, "vars", { get: function () { return this._vars; } });
     },
     
@@ -112,6 +112,7 @@ let HAction = cc.Class({
     playAction: function () {
         this._state = ezaction.State.RUNNING;
         this._delay = this._vars.delay;
+        this._isStart = false;
     },
     /*
      * 执行调度函数, HActionEngine来调度此方法, 外部不可调用！
@@ -127,13 +128,19 @@ let HAction = cc.Class({
             return;
         }
         // 处理延时调用
-        if (this._delay > 0) {
-            this._delay -= dt;
-            return;
-        }
-        this.$update(dt);
-        if (this.isRunning() && typeof vars["onUpdate"] === 'function') {
-            vars["onUpdate"](this, dt);
+        this._delay -= dt;
+        if (this._delay <= 0){
+            // onStart事件
+            if ( !this._isStart ){
+                this._isStart = true;
+                if ( typeof vars["onStart"] === 'function') {
+                    vars["onStart"](this);
+                }
+            }
+            this.$update(dt);
+            if (this.isRunning() && typeof vars["onUpdate"] === 'function') {
+                vars["onUpdate"](this, dt);
+            }
         }
     },
     $update: function (dt) {
@@ -256,6 +263,14 @@ let HAction = cc.Class({
         this._vars["repeat"] = value;
         return this;
     },
+
+    onStart: function (func) {
+        if (typeof func === 'function'){
+            this._vars["onStart"] = func;
+        }
+        return this;
+    },
+
     onUpdate: function (func) {
         if (typeof func === 'function'){
             this._vars["onUpdate"] = func;

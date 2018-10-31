@@ -67,6 +67,11 @@ An extension animation framework for cocos creator.
 
 		    let act = ...
 		
+			//每次act开始执行回调, 如果repeat 三次，则onComplete回调三次
+		    act.onUpdate(function( action )
+		    {
+		    });
+		    
 		    //每次update回调
 		    act.onUpdate(function( action, dt )
 		    {
