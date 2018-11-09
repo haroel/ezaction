@@ -12,6 +12,9 @@ An extension animation framework for cocos creator.
 			let act = ezaction.moveTo(2.0,cc.v2(200,200));
 			// 使用和cocos类似，不过首字母大写，详细请查看ezaction/ezaction.d.ts
 			this.node.RunAction(act); 
+			
+			et act = ezaction.moveTo(2.0,cc.v2(200,200));
+
 
 2. 延时动作
 
@@ -73,7 +76,7 @@ An extension animation framework for cocos creator.
 		    let act = ...
 		
 			//每次act开始执行回调, 如果repeat 三次，则onComplete回调三次
-		    act.onUpdate(function( action )
+		    act.onStart(function( action )
 		    {
 		    });
 		    
