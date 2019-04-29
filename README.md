@@ -120,10 +120,11 @@ An extension animation framework for cocos creator.
 
 
 
-<br><br><br>
-## ezaction的继承谱系
+<br>
 
-![ezaction pedigree](http://aeooh.com/article/res/haction_f.png)
+## ezaction的继承谱系
+![extends](https://raw.githubusercontent.com/haroel/imageHub/master/haction_f.png)
+
 
 `ezaction.tween(ezaction.moveTo/scaleTo/skewTo/fadeTo...) `返回的是一个`HActionTween`类实例，
 `ezaction.tweenBy(ezaction.moveBy/scaleBy/skewBy...)`返回的是一个`HActionTweenBy`类实例，
