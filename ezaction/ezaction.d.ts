@@ -3,7 +3,7 @@
  * @Author: howe
  * @Contact: ihowe@outlook.com
  * @Last Modified By: howe
- * @Last Modified Time: Sep 13, 2018 11:37 AM
+ * @Last Modified Time: Dec 10, 2018 5:04 PM
  * @Description: ezaction的TS接口描述文件
  * 
  */
@@ -103,8 +103,14 @@ declare namespace ezaction {
          * vars变量，HVars的实例
          */
         readonly vars: any;
+
         /**
-         * vars变量，HVars的实例
+         * 作用的目标节点
+         */
+        readonly target: cc.Node;
+
+        /**
+         * vars变量，HVars的实例，同vars属性
          */
         getVars(): any;
         
@@ -135,7 +141,7 @@ declare namespace ezaction {
         setSpeed(value: number): HAction;
 
         /**
-         * 当前HAction作用的Node节点
+         * 当前HAction作用的Node节点，同target
          */
         getNode(): cc.Node;
         /**
@@ -313,5 +319,8 @@ declare namespace ezaction {
 
     export function jumpBy( duration:number, pos:{x:number,y:number}, height:number, jumps:number, vars:any = null ): ezaction.HActionJumpBy;
     export function jumpTo( duration:number, pos:{x:number,y:number}, height:number, jumps:number, vars:any = null ): ezaction.HActionJumpTo;
+
+    export function bezierTo(duration: number, configs:cc.Vec2[],vars:any = null): ezaction.HActionBezierTo;
+    export function bezierBy(duration: number, configs:cc.Vec2[],vars:any = null): ezaction.HActionBezierBy;
 
 }

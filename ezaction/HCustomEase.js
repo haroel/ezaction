@@ -10,13 +10,13 @@
  * 本人基于该库移植到cocos creator平台并集成到ezaction
  */
 let _CustomEaseConstructor = function (){
-    var _numbersExp = /(?:(-|-=|\+=)?\d*\.?\d*(?:e[\-+]?\d+)?)[0-9]/ig,
+    let _numbersExp = /(?:(-|-=|\+=)?\d*\.?\d*(?:e[\-+]?\d+)?)[0-9]/ig,
     _svgPathExp = /[achlmqstvz]|(-?\d*\.?\d*(?:e[\-+]?\d+)?)[0-9]/ig,
     _scientific = /[\+\-]?\d*\.?\d+e[\+\-]?\d+/ig,
     _needsParsingExp = /[cLlsS]/g,
     _bezierError = "CustomEase only accepts Cubic Bezier data.",
     _bezierToPoints = function (x1, y1, x2, y2, x3, y3, x4, y4, threshold, points, index) {
-        var x12 = (x1 + x2) / 2,
+        let x12 = (x1 + x2) / 2,
             y12 = (y1 + y2) / 2,
             x23 = (x2 + x3) / 2,
             y23 = (y2 + y3) / 2,
@@ -47,8 +47,8 @@ let _CustomEaseConstructor = function (){
     },
 
     _pathDataToBezier = function (d) {
-        var a = (d + "").replace(_scientific, function (m) {
-                    var n = +m;
+        let a = (d + "").replace(_scientific, function (m) {
+                    let n = +m;
                     return (n < 0.0001 && n > -0.0001) ? 0 : n;
                 }).match(_svgPathExp) || [], //some authoring programs spit out very small numbers in scientific notation like "1e-5", so make sure we round that down to 0 first.
             path = [],
@@ -150,7 +150,7 @@ let _CustomEaseConstructor = function (){
     },
 
     _findMinimum = function (values) {
-        var l = values.length,
+        let l = values.length,
             min = 999999999999,
             i;
         for (i = 1; i < l; i += 6) {
@@ -165,7 +165,7 @@ let _CustomEaseConstructor = function (){
         if (!originY && originY !== 0) {
             originY = Math.max(+values[values.length-1], +values[1]);
         }
-        var tx = +values[0] * -1,
+        let tx = +values[0] * -1,
             ty = -originY,
             l = values.length,
             sx = 1 / (+values[l - 2] + tx),
@@ -183,7 +183,7 @@ let _CustomEaseConstructor = function (){
     },
 
     _getRatio = function (p) {
-        var point = this.lookup[(p * this.l) | 0] || this.lookup[this.l - 1];
+        let point = this.lookup[(p * this.l) | 0] || this.lookup[this.l - 1];
         if (point.nx < p) {
             point = point.n;
         }
@@ -199,7 +199,7 @@ let _CustomEaseConstructor = function (){
     p = CustomEase.prototype;
     p.setData = function(data, config) {
         data = data || "0,0,1,1";
-        var values = data.match(_numbersExp),
+        let values = data.match(_numbersExp),
             closest = 1,
             points = [],
             l, a1, a2, i, inc, j, point, prevPoint, p, precision;
@@ -300,7 +300,7 @@ let _CustomEaseConstructor = function (){
 }
 
 const CustomEaseConstructor = _CustomEaseConstructor();
-var customease = {};
+let customease = {};
 customease.create = function (id, data, config){
     return new CustomEaseConstructor(id,data,config);
 }

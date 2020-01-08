@@ -35,7 +35,7 @@ let HActionJumpBy = cc.Class({
         this._super(rate);
         let vars = this._vars;
         let node = this.getNode();
-        let progress = this.getProgress();
+        let dt = this.getProgress();
 
         let frac = rate * this._jumps % 1.0;
         let y = this._height * 4 * frac * (1 - frac);

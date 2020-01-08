@@ -9,7 +9,7 @@ let HVars = require("HVars");
 
 // 生成唯一ID
 let UUID_GENERATOR = (function () {
-    var i = 0;
+    let i = 0;
     return function () {
         return "__HAction_uuid_" + i++;
     }
@@ -28,6 +28,7 @@ let HAction = cc.Class({
         this._vars = new HVars();
         this._isStart = false;
         Object.defineProperty(this, "vars", { get: function () { return this._vars; } });
+        Object.defineProperty(this, "target", { get: function () { return this.getNode(); } });
     },
     
     setTag(value) {
@@ -48,6 +49,10 @@ let HAction = cc.Class({
     },
     /* 是否把加速出啊满地给next */
     setSpeed: function (speedValue) {
+        if (typeof speedValue != "number"){
+            cc.warn("HAction -> setSpeed: speed must be positive number");
+            return;
+        }
         if (speedValue<=0){
             cc.warn("HAction -> setSpeed: speed must be positive number");
             return;
@@ -85,7 +90,6 @@ let HAction = cc.Class({
         }
         return this;
     },
-
 
     /*
      * 初始化 (可重写改方法)
@@ -229,7 +233,7 @@ let HAction = cc.Class({
             this.__nextAction.$destroy();
         }
         this.__nextAction = act;
-        return this;
+        return act;
     },
     /*
      * 完备克隆action

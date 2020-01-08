@@ -33,6 +33,9 @@ ezaction.HActionJumpBy = require("HActionJump").jumpBy;
 ezaction.HActionJumpTo = require("HActionJump").jumpTo;
 ezaction.HCustomEase = require("HCustomEase");
 
+ezaction.HActionBezierBy = require("HActionBezier").bezierBy;
+ezaction.HActionBezierTo = require("HActionBezier").bezierTo;
+
 let __checkParams = function (params) {
     // 剔除参数当中的不需要数据
     let obj = {};
@@ -188,5 +191,17 @@ ezaction.jumpBy = function (duration, pos, height, jumps, vars/* null */){
 ezaction.jumpTo = function (duration, pos, height, jumps, vars/* null */){
     let act = new ezaction.HActionJumpTo();
     act.init( duration , pos , height , jumps , vars );
+    return act;
+}
+
+ezaction.bezierTo = function(duration,configs,vars/* null */){
+    let act = new ezaction.HActionBezierTo();
+    act.init(duration,configs,vars);
+    return act;
+}
+
+ezaction.bezierBy = function(duration,configs,vars/* null */){
+    let act = new ezaction.HActionBezierBy();
+    act.init(duration,configs,vars);
     return act;
 }

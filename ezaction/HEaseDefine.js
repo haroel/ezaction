@@ -13,7 +13,7 @@
  *
  * */
 
-var ease = {};
+let ease = {};
 module.exports = ease;
 
 let M_PI_X_2 = 3.1415926535 * 2;
